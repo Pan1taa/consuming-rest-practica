@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{webjars/bootstrap/5.2.3/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+    <title>Spring consuming rest example</title>
+
+</head>
+
+<!-- Hay que buscar el nombre del pokemon con la primera letra en minusculas, ya que es como esta puesto en el archivo de la api -->
+<body>
+<h1>Pokemon Info</h1>
+<form action="/pokemon" method="get">
+    <label for="name">Pokemon Name:</label>
+    <input type="text" id="name" name="name">
+    <button type="submit">Get Info</button>
+</form>
+<div th:if="${pokemonData}">
+    <p>Nombre: <span th:text="${pokemonData.getNombre}"></span></p>
+
+    <div>
+        <p>Tipo 1: <span th:text="${pokemonData.getTipo1}"></span></p>
+        <!-- Ponemos un if por que hay pokemons que solo tienen un tipo -->
+        <p th:if="${pokemonData.getTipo2}">Tipo 2: <span th:text="${pokemonData.getTipo2}"></span></p>
+    </div>
+
+    <div id="spritesPokemon">
+        <p>Foto: </p>
+        <img th:src="@{${pokemonData.getFoto}}">
+
+        <p>Foto Shiny:</p>
+        <img th:src="@{${pokemonData.getFotoShiny}}">
+    </div>
+
+    <div id="stats">
+        <p>HP: <span th:text="${pokemonData.getHp}"></span></p>
+        <p>Ataque: <span th:text="${pokemonData.getAtaque}"></span></p>
+        <p>Defensa: <span th:text="${pokemonData.getDefensa}"></span></p>
+        <p>At. Esp: <span th:text="${pokemonData.getAtEsp}"></span></p>
+        <p>Def. Esp: <span th:text="${pokemonData.getDefEsp}"></span></p>
+        <p>Velocidad: <span th:text="${pokemonData.getVelocidad}"></span></p>
+    </div>
+</div>
+</body>
+
+</html>
